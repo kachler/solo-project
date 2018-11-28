@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
 require('dotenv').config();
 
-// const Schema = mongoose.Schema;
 const { Schema } = mongoose;
 
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true });

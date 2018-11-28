@@ -3,7 +3,11 @@ const Whiskey = require('../models/whiskey-model');
 // This function grabs the mongoose model and connection, searches for all documents,
 // and returns them to the client
 function getData(req, res) {
-  Whiskey.find({}, (err, doc) => {
+  // Setting up a query using mongoose promises
+  const query = Whiskey.find({}).exec();
+
+  // Handling the result of the query
+  query.then((doc) => {
     res.send(doc);
   })
     .catch((err) => {
@@ -14,7 +18,6 @@ function getData(req, res) {
 // This function grabs the mongoose model and connection, posts a new document,
 // and returns it to the client
 function postData(req, res) {
-
   // Creating a new whiskey object using the schema
   const newWhiskey = new Whiskey({
     distilleryName: req.body.distilleryName,
@@ -25,11 +28,13 @@ function postData(req, res) {
     region: req.body.region,
   });
 
-  // Saving the new whiskey object to the database
-  newWhiskey.save()
-    .then((doc) => {
-      res.send(doc);
-    })
+  // Setting up a save using mongoose promises
+  const promise = newWhiskey.save();
+
+  // Handling the result of the save
+  promise.then((doc) => {
+    res.send(doc);
+  })
     .catch((err) => {
       res.send(418, err);
     });
