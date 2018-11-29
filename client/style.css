@@ -1,0 +1,42 @@
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.header {
+    width: 100%;
+    height: 10%;
+    background-color: gray;
+}
+
+.notes-container {
+    width: 100%;
+    height: 80%;
+    background-image: radial-gradient(lightgray, gray);
+}
+
+.note {
+    /* visibility: hidden; */
+    background-color: gray;
+    padding: 5px;
+    width:28%;
+    margin: 5px 5px 13px 10px;
+    float:left;
+    font-size: .8em;
+    border: 12px solid white;
+    border-radius: 20px;
+}
+
+.new-note {
+    /* visibility: hidden; */
+    background-color: white;
+    height: 300px;
+    width: 300px;
+}
+
+.footer {
+    width: 100%;
+    height: 10%;
+    background-color: gray;
+}

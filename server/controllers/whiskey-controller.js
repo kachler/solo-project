@@ -40,4 +40,15 @@ function postData(req, res) {
     });
 }
 
-module.exports = { getData, postData };
+function deleteData(req, res) {
+  const query = Whiskey.findOneAndDelete({ _id: req.params.name }).exec();
+
+  query.then((doc) => {
+    res.send(doc);
+  })
+    .catch((err) => {
+      res.status(418).send(err);
+    });
+}
+
+module.exports = { getData, postData, deleteData };

@@ -5,16 +5,22 @@ module.exports = {
   entry: './client/index.js',
 
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'webpack-bundle.js',
+    filename: 'bundle.js',
+  },
+  devServer: {
+    publicPath: '/client',
   },
   module: {
     rules: [
       {
         test: /\.jsx?$|\.es6$\|\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: { presets: ['react', 'es2015'] },
+          options: {
+            presets: ['@babel/env', '@babel/react'],
+            plugins: ['@babel/plugin-transform-runtime'],
+          },
         }
       },
       {
