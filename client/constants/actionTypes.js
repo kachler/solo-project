@@ -1,0 +1,9 @@
+export const ADD_WHISKEY = 'ADD_WHISKEY';
+export const DELETE_WHISKEY = 'DELETE_WHISKEY';
+export const LOAD_WHISKIES = 'LOAD_WHISKIES';
+export const SET_NEW_DISTILLERY = "SET_NEW_DISTILLERY";
+export const SET_NEW_NAME = "SET_NEW_NAME";
+export const SET_NEW_NOTE = "SET_NEW_NOTE";
+export const SET_NEW_RATING = "SET_NEW_RATING";
+export const SET_NEW_COUNTRY = "SET_NEW_COUNTRY";
+export const SET_NEW_REGION = "SET_NEW_REGION";
