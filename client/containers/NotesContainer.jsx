@@ -5,7 +5,8 @@ import NewNote from '../components/NewNote.jsx'
 import * as actions from '../actions/actions';
 
 const mapStateToProps = store => ({
-  whiskeyList: store.whiskeys.whiskeyList
+  whiskeyList: store.whiskeys.whiskeyList,
+  showModal: store.whiskeys.showModal
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,28 +18,44 @@ const mapDispatchToProps = dispatch => ({
   setNewRating: data => dispatch(actions.setNewRating(data)),
   setNewCountry: data => dispatch(actions.setNewCountry(data)),
   setNewRegion: data => dispatch(actions.setNewRegion(data)),
+  setShowModal: data => dispatch(actions.setShowModal(data)),
 });
 
 const NotesContainer = (props) => {
+  console.log(props);
   const whiskeysArray = [];
   props.whiskeyList.forEach((whiskey, i) => {
-    whiskeysArray.push(<Note whiskey={whiskey} key={i} deleteWhiskey={props.deleteWhiskey} />);
+    whiskeysArray.push(<Note whiskey={whiskey} key={i} deleteWhiskey={() => props.deleteWhiskey(i)} />);
   });
-  return (
-    <div className="notes-container">
-      <h1>Notes Container</h1>
-      { whiskeysArray }
-      <NewNote 
-        addWhiskey={props.addWhiskey}
-        setNewDistillery={props.setNewDistillery}
-        setNewName={props.setNewName}
-        setNewNote={props.setNewNote}
-        setNewRating={props.setNewRating}
-        setNewCountry={props.setNewCountry}
-        setNewRegion={props.setNewRegion}
-      />
-    </div>
-  );
+  if (props.showModal === false) {
+    return (
+      <div className="notes-container">
+        <h1>My Tasting Notes</h1>
+        { whiskeysArray }
+        <button id="add-button" type="button" onClick={props.setShowModal}>Add</button>
+      </div>
+    );
+  }
+  if (props.showModal === true) {
+    return (
+      <div className="notes-container">
+        <h1>My Tasting Notes</h1>
+        { whiskeysArray }
+        <NewNote 
+          addWhiskey={props.addWhiskey}
+          setNewDistillery={props.setNewDistillery}
+          setNewName={props.setNewName}
+          setNewNote={props.setNewNote}
+          setNewRating={props.setNewRating}
+          setNewCountry={props.setNewCountry}
+          setNewRegion={props.setNewRegion}
+          showModal={props.showModal}
+        />
+        <button id="add-button" type="button" onClick={props.setShowModal}>Add</button>
+      </div>
+    );
+  }
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer);

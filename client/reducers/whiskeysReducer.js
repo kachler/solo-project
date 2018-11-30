@@ -5,39 +5,15 @@ const apiUri = 'http://localhost:3000';
 // const apiUri = 'http://localhost:8080';
 
 const initialState = {
-  totalWhiskeys: 3,
+  showModal: false,
+  totalWhiskeys: 0,
   newDistilleryName: '',
   newWhiskeyName: '',
   newNote: '',
   newRating: '',
   newCountry: '',
   newRegion: '',
-  whiskeyList: [
-    {
-      distilleryName: 'Macallan',
-      whiskeyName: 21,
-      note: 'Classic flavor profile',
-      rating: 3,
-      country: 'Scotland',
-      region: 'Highland',
-    },
-    {
-      distilleryName: 'Longrow',
-      whiskeyName: 'Red',
-      note: 'You can taste the salt air',
-      rating: 3,
-      country: 'Scotland',
-      region: 'Campbeltown',
-    },
-    {
-      distilleryName: 'Lagavulin',
-      whiskeyName: '16',
-      note: 'Smokey, peaty and smooth',
-      rating: 5,
-      country: 'Scotland',
-      region: 'Islay',
-    },
-  ],
+  whiskeyList: [],
 };
 
 const whiskeysReducer = (state = initialState, action) => {
@@ -50,7 +26,7 @@ const whiskeysReducer = (state = initialState, action) => {
         note: state.newNote,
         rating: state.newRating,
         country: state.newCountry,
-        region: state.newCountry,
+        region: state.newRegion,
       };
 
       axios.post(`${apiUri}/add`, newWhiskey)
@@ -60,6 +36,7 @@ const whiskeysReducer = (state = initialState, action) => {
         .catch(console.error);
 
       newState.whiskeyList = state.whiskeyList.concat(newWhiskey);
+      newState.showModal = false;
       newState.newDistilleryName = '';
       newState.newWhiskeyName = '';
       newState.newNote = '';
@@ -98,16 +75,32 @@ const whiskeysReducer = (state = initialState, action) => {
         ...state,
         newRegion: action.payload,
       };
-    case types.DELETE_WHISKEY:
-      return {
-      };
     case types.LOAD_WHISKIES: {
       console.log(action.payload);
       const newState = { ...state };
       newState.totalWhiskeys = action.payload.length;
       newState.whiskeyList = action.payload;
       return newState;
-    }        
+    }
+    case types.DELETE_WHISKEY: {
+      const newState = { ...state };
+      newState.whiskeyList = newState.whiskeyList.slice();
+      axios.delete(`${apiUri}/delete/${newState.whiskeyList[action.payload]._id}`)
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch(console.error);
+
+      delete newState.whiskeyList[action.payload];
+      return newState;
+    }
+    case types.SET_SHOW_MODAL: {
+      console.log(state.showModal);
+      const newState = { ...state };
+      newState.whiskeyList = newState.whiskeyList.slice();
+      newState.showModal = true;
+      return newState;
+    }  
     default:
       return state;
   }

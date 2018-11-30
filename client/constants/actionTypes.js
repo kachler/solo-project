@@ -7,3 +7,4 @@ export const SET_NEW_NOTE = "SET_NEW_NOTE";
 export const SET_NEW_RATING = "SET_NEW_RATING";
 export const SET_NEW_COUNTRY = "SET_NEW_COUNTRY";
 export const SET_NEW_REGION = "SET_NEW_REGION";
+export const SET_SHOW_MODAL = "SET_SHOW_MODAL";

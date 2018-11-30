@@ -18,7 +18,6 @@ const MainContainer = (props) => {
 //   console.log(props);
   return (
     <div className="main-container">
-      {/* <h1>Main Container</h1> */}
       <Header {...props} />
       <Notes />
       <Footer />

@@ -54,3 +54,8 @@ export const loadWhiskeys = () => (dispatch) => {
     })
     .catch(console.error);
 };
+
+export const setShowModal = data => ({
+  type: types.SET_SHOW_MODAL,
+  payload: data
+});
